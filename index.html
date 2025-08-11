@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to AI-Driven Software Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Tech Neutral (Slate, Sky Blue, White) -->
+    <!-- Application Structure Plan: The application is structured as a guided journey through the AI development framework. It starts with a high-level introduction, then moves to an interactive "Core Principles" section designed as a clickable process flow. This is followed by a "Best Practices" section using a tabbed interface to detail each practice with code examples. New sections for "Golden Rules," "Repository Structure," "Definition of Done," "Failure & Escalation," "Task Scoping Matrix," and "First-Run Checklist" are added to provide comprehensive framework details, transforming the linear, instructional text of the report into an engaging, non-linear exploratory experience, allowing users to digest the concepts in a layered, interactive manner, which is more effective for understanding a complex workflow than a static document. -->
+    <!-- Visualization & Content Choices: Report Info: Core principles workflow. -> Goal: Organize/Inform. -> Viz/Presentation: Interactive clickable cards in a sequence. -> Interaction: Clicking a card reveals details in a modal-like view. -> Justification: Encourages focused learning on each step of the cycle. -> Library/Method: HTML/CSS/JS. Report Info: Best practices with code. -> Goal: Organize/Inform. -> Viz/Presentation: Tabbed interface with styled code blocks. -> Interaction: Switching tabs to view different practices; copy-to-clipboard for code. -> Justification: Keeps the UI clean and allows easy comparison and use of code snippets. -> Library/Method: HTML/CSS/JS. Report Info: project-spec.json. -> Goal: Inform/Interact. -> Viz/Presentation: Interactive code block. -> Interaction: Hovering over JSON keys displays tooltips with explanations. -> Justification: Makes a dense configuration file understandable and less intimidating. -> Library/Method: HTML/CSS/JS. Report Info: Golden Rules, Definitions of Done, Failure Protocol, Task Scoping Matrix, First-Run Checklist, Repository Layout. -> Goal: Inform/Organize. -> Viz/Presentation: Structured text, lists, and tables. -> Interaction: Static presentation, clear headings for readability. -> Justification: Provides direct, actionable guidance in a digestible format. -> Library/Method: HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .principle-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .tab-button.active {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            background-color: #f0f9ff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .code-block {
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        #tooltip {
+            position: absolute;
+            display: none;
+            padding: 8px 12px;
+            background-color: #111827;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .json-key {
+            cursor: pointer;
+            color: #9333ea;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div id="tooltip"></div>
+
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">An Interactive Guide to AI-Driven Software Development</h1>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">This application deconstructs the provided guidelines, transforming them into an interactive experience. Explore the core principles and best practices for enabling AI agents to build software with greater context and efficiency.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="core-principles" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">The Core Development Cycle</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">The foundation of this framework is a continuous cycle of documentation and verification. This ensures the AI agent always has the necessary context to perform tasks accurately. Click on each step to learn more about the specific actions involved.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+                <div class="principle-card-container text-center" data-principle="init">
+                    <div class="principle-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-2 border-transparent hover:border-sky-500">
+                        <div class="text-3xl mb-3">🚀</div>
+                        <h3 class="font-bold text-lg text-slate-900">1. Initialize</h3>
+                        <p class="text-sm text-slate-500 mt-1">Set up project documentation.</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center h-full text-3xl text-slate-300 pt-10">→</div>
+                <div class="principle-card-container text-center" data-principle="read">
+                    <div class="principle-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-2 border-transparent hover:border-sky-500">
+                        <div class="text-3xl mb-3">📖</div>
+                        <h3 class="font-bold text-lg text-slate-900">2. Act</h3>
+                        <p class="text-sm text-slate-500 mt-1">Read docs before each task.</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center h-full text-3xl text-slate-300 pt-10">→</div>
+                 <div class="principle-card-container text-center" data-principle="update">
+                    <div class="principle-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-2 border-transparent hover:border-sky-500">
+                        <div class="text-3xl mb-3">✍️</div>
+                        <h3 class="font-bold text-lg text-slate-900">3. Verify</h3>
+                        <p class="text-sm text-slate-500 mt-1">Update docs & run tests.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="principle-details" class="mt-12 bg-white p-8 rounded-xl shadow-lg border border-slate-200 min-h-[200px] flex items-center justify-center transition-opacity duration-300">
+                 <p class="text-slate-500 text-center">Click a step above to see the details here.</p>
+            </div>
+        </section>
+
+        <section id="best-practices" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Best Practices for a Flexible Framework</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">To enhance the framework's adaptability and efficiency, several best practices are recommended. These practices focus on automation, configuration, and a pragmatic approach to testing, allowing the framework to be applied to a wide variety of projects with minimal friction.</p>
+
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="border-b border-slate-200">
+                    <nav class="flex flex-wrap -mb-px px-4" id="tabs-container">
+                        <button class="tab-button active text-slate-600 hover:text-sky-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm" data-tab="entry-point">Single Entry Point</button>
+                        <button class="tab-button text-slate-600 hover:text-sky-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm" data-tab="config">Externalize Configuration</button>
+                        <button class="tab-button text-slate-600 hover:text-sky-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm" data-tab="e2e">Pragmatic E2E Testing</button>
+                        <button class="tab-button text-slate-600 hover:text-sky-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm" data-tab="auto-init">Automate Initialization</button>
+                    </nav>
+                </div>
+                <div class="p-8">
+                    <div id="entry-point" class="tab-content active">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Use a Single Entry Point</h3>
+                        <p class="text-slate-600 mb-4">Instead of hardcoding commands, use a single `run.sh` script that acts as a universal interface for common development tasks like linting, testing, and running the application. This script reads from a configuration file to determine the actual commands to execute.</p>
+                        <p class="text-slate-600 mb-4"><strong>Benefit:</strong> This approach decouples the AI agent's logic from the project's specific tooling. The agent can consistently call `./scripts/run.sh test` across different projects, and the script will handle the project-specific implementation.</p>
+                        <div class="code-block bg-slate-800 rounded-lg mt-4">
+                            <button class="copy-button bg-slate-600 hover:bg-slate-500 text-white text-xs font-bold py-1 px-2 rounded" data-code="run-sh-code">Copy</button>
+                            <pre class="text-white p-4 text-sm overflow-x-auto"><code id="run-sh-code">#!/bin/bash
+# scripts/run.sh
+
+TASK=$1
+CONFIG_FILE="project-spec.json"
+
+# Read command from JSON config
+COMMAND=$(jq -r ".commands.$TASK" $CONFIG_FILE)
+
+if [[ "$COMMAND" == "null" ]]; then
+  echo "Task '$TASK' not found in $CONFIG_FILE."
+  exit 1
+fi
+
+# Execute the command
+echo "Executing: $COMMAND"
+eval $COMMAND
+</code></pre>
+                        </div>
+                    </div>
+                    <div id="config" class="tab-content">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Externalize Configuration</h3>
+                        <p class="text-slate-600 mb-4">Store all project-specific paths, commands, and metadata in a `project-spec.json` file. This centralizes configuration and makes the framework adaptable to any project structure without code changes.</p>
+                        <p class="text-slate-600 mb-4"><strong>Benefit:</strong> Allows immediate adaptation to any project’s folder structure, naming conventions, and tooling without modifying the core AI agent framework.</p>
+                        <div class="code-block bg-slate-800 rounded-lg mt-4">
+                             <button class="copy-button bg-slate-600 hover:bg-slate-500 text-white text-xs font-bold py-1 px-2 rounded" data-code="json-code-tab">Copy</button>
+                            <pre class="text-white p-4 text-sm overflow-x-auto"><code id="json-code-tab">{
+  "project_name": "My Awesome App",
+  "source_dir": "src",
+  "docs": {
+    "project": "docs/project.md",
+    "context_log": "docs/context_log.md",
+    "dev_log": "docs/dev_log.md"
+  },
+  "commands": {
+    "static_check": "npm run lint",
+    "unit_test": "npm test",
+    "e2e_test": "npm run cypress:run"
+  }
+}
+</code></pre>
+                        </div>
+                    </div>
+                    <div id="e2e" class="tab-content">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Make E2E Testing a Goal, Not a Prerequisite</h3>
+                        <p class="text-slate-600 mb-4">Treat End-to-End (E2E) testing as a milestone to be completed, rather than a blocking requirement from the start. This allows projects to get started quickly while still prioritizing the setup of comprehensive testing.</p>
+                        <p class="text-slate-600 mb-4"><strong>Suggested Behavior:</strong> During the VERIFY stage, if an `e2e_test` command is defined in the configuration, the framework runs it. If not, it logs the absence and marks E2E setup as a pending task.</p>
+                        <p class="text-slate-600 mb-4"><strong>Benefit:</strong> Projects can achieve momentum without being blocked by initial test setup, while ensuring that E2E testing remains an important, tracked deliverable.</p>
+                    </div>
+                    <div id="auto-init" class="tab-content">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Automate Project Initialization</h3>
+                        <p class="text-slate-600 mb-4">Provide a setup script, like `init-agent-project.sh`, to scaffold the entire documentation and test structure in a single command. This script can create documentation files from templates, seed test scripts with placeholders, and generate the `project-spec.json` file.</p>
+                        <p class="text-slate-600 mb-4"><strong>Benefit:</strong> Radically simplifies project setup, reduces manual error, and ensures consistency across all projects managed by the AI agent.</p>
+                         <div class="code-block bg-slate-800 rounded-lg mt-4">
+                            <button class="copy-button bg-slate-600 hover:bg-slate-500 text-white text-xs font-bold py-1 px-2 rounded" data-code="init-sh-code">Copy</button>
+                            <pre class="text-white p-4 text-sm overflow-x-auto"><code id="init-sh-code">#!/bin/bash
+# init-agent-project.sh
+
+# Create doc files from templates
+mkdir -p docs
+touch docs/project.md docs/context_log.md docs/dev_log.md
+
+# Create script placeholders
+mkdir -p scripts
+touch scripts/test.sh scripts/e2e.sh
+
+# Generate a default project-spec.json
+cat <<EOL > project-spec.json
+{
+  "project_name": "New Project",
+  "source_dir": "src",
+  "docs": {
+    "project": "docs/project.md",
+    "context_log": "docs/context_log.md",
+    "dev_log": "docs/dev_log.md"
+  },
+  "commands": {
+    "static_check": "echo 'lint command not set'",
+    "unit_test": "echo 'test command not set'"
+  }
+}
+EOL
+
+echo "Project initialized successfully!"
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="golden-rules" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Golden Rules for AI Agents</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">These fundamental rules guide the AI agent's behavior, ensuring quality, efficiency, and robustness throughout the development process. Adherence to these principles is crucial for effective and reliable software creation.</p>
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <ul class="list-disc list-inside text-slate-600 space-y-3">
+                    <li><strong>Test-now Mandate:</strong> After *every* code change, run automated tests and a minimal end-to-end (E2E) smoke. No exceptions.</li>
+                    <li><strong>One Clarification Max:</strong> If critical information is missing, ask **one** concise question. Otherwise, choose sensible defaults, record assumptions in `context_log.md`, and proceed.</li>
+                    <li><strong>No Infinite Loops:</strong> Each quality gate allows at most **2 retries**. If still failing, log findings, open a blocker, and stop.</li>
+                    <li><strong>Everything Logged:</strong> Update `dev_log.md` on every task. Update `context_log.md` when goals, decisions, or constraints change.</li>
+                    <li><strong>Minimal Diffs:</strong> Prefer small, isolated changes and patches. Show diffs before commit.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="repository-layout" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Standard Repository Layout</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">A consistent repository structure helps the AI agent navigate and manage project files efficiently. This standardized layout promotes clarity and predictability across different projects.</p>
+            <div class="bg-slate-800 rounded-xl shadow-lg p-6 max-w-3xl mx-auto text-white overflow-x-auto">
+                <pre class="text-sm">
+/docs
+  project.md       # Overview, goals, requirements, design, test strategy
+  context_log.md   # Current goals, decisions, constraints, tasks, assumptions
+  dev_log.md       # Chronological task log
+/adr              # Architecture Decision Records (ADR-0001.md, ...)
+/templates        # TASK.md and other templates
+/src              # Source code
+/test             # Unit/integration tests
+/e2e              # End-to-end smoke/specs
+/scripts          # test.sh, e2e.sh, lint/typecheck wrappers
+/tmp              # Scratch outputs (not committed)
+                </pre>
+            </div>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mt-4"><strong>Rules:</strong> Agents write only in `/docs`, `/src`, `/test`, `/e2e`, `/scripts`, `/tmp` unless told otherwise. Never overwrite large files blindly—prefer **PATCH** with smallest diffs. If a required doc/script is missing, **create from templates**.</p>
+        </section>
+
+        <section id="definition-of-done" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Definition of Done (Per Task)</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">A clear "Definition of Done" ensures that every task is completed to a high standard, with all necessary tests passed and documentation updated before finalization.</p>
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <ul class="list-disc list-inside text-slate-600 space-y-3">
+                    <li>All three gates pass locally (**static**, **unit/integration**, **E2E**).</li>
+                    <li>Acceptance criteria satisfied and verified in **E2E smoke**.</li>
+                    <li>`dev_log.md` updated; assumptions recorded in `context_log.md`.</li>
+                    <li>Commit message prepared; diffs reviewed for **secrets** & **dead code**.</li>
+                    <li>No unaddressed **high-severity static findings**.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="failure-escalation" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Failure & Escalation Protocol</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">When tests fail repeatedly, a defined escalation protocol ensures that the issue is properly addressed, preventing infinite loops and providing clear guidance for resolution.</p>
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <p class="text-slate-600 mb-4">If a gate still fails after **2 retries**:</p>
+                <ol class="list-decimal list-inside text-slate-600 space-y-3">
+                    <li>**Revert** the last change to restore green state (or isolate failing patch).</li>
+                    <li>Append a **Blocker** entry in `context_log.md` with:
+                        <ul class="list-disc list-inside ml-5 mt-2">
+                            <li>Error message(s) and logs</li>
+                            <li>Current hypothesis</li>
+                            <li>Next best step</li>
+                        </ul>
+                    </li>
+                    <li>Stop and request guidance (**include logs and diffs**).</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="task-scoping-matrix" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Task Scoping Matrix</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">This matrix helps to match the effort and required steps to the complexity of the change, optimizing the development process for various task types.</p>
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <table class="w-full text-slate-600">
+                    <thead>
+                        <tr>
+                            <th>Change Level</th>
+                            <th>Examples</th>
+                            <th>Required Steps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Patch</td>
+                            <td>Bug fix, typo</td>
+                            <td>Test → Code → Verify → Log</td>
+                        </tr>
+                        <tr>
+                            <td>Feature</td>
+                            <td>New API endpoint</td>
+                            <td>Plan → Test → Code → Log</td>
+                        </tr>
+                        <tr>
+                            <td>Refactor</td>
+                            <td>Architecture change</td>
+                            <td>Plan → ADR → Test → Code</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="first-run-checklist" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">First-Run Checklist</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">For the initial setup of a new project, this checklist ensures all foundational elements are in place for the AI agent to begin its work effectively.</p>
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <ul class="list-disc list-inside text-slate-600 space-y-3">
+                    <li>Create `/docs/project.md`, `/docs/context_log.md`, `/docs/dev_log.md` from templates.</li>
+                    <li>Add **ADR-0001** for stack selection (language/framework, testing libs).</li>
+                    <li>Create `/scripts/test.sh` and `/scripts/e2e.sh` and make them executable.</li>
+                    <li>Seed an initial **E2E smoke** (e.g., `GET /health` route or `cli.py --help`).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="config-explorer">
+            <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Configuration Explorer</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">The `project-spec.json` file is the brain of the framework, telling the AI agent where to find files and what commands to run. Hover over the keys in the JSON below to understand the role of each configuration.</p>
+            <div class="bg-slate-800 rounded-xl shadow-lg p-6 max-w-3xl mx-auto">
+                <pre class="text-white text-sm overflow-x-auto"><code id="json-explorer-code"></code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-20 border-t border-slate-200">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
+            <p>This interactive guide was generated based on the "Instructional Guideline for AI Agents to Build Software Efficiently" report.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const principlesData = {
+                init: {
+                    title: 'Initialize Project Documentation',
+                    icon: '🚀',
+                    content: `
+                        <p class="text-slate-600 mb-4">At the start of a project, the AI agent must establish a baseline of understanding by creating essential documentation files. This ensures context and history are maintained from the very beginning.</p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2">
+                            <li><strong>Create Files:</strong> <code>project.md</code>, <code>dev_log.md</code>, and <code>context_log.md</code>.</li>
+                            <li><strong>Templates:</strong> Add sections like # Overview and # Requirements to <code>project.md</code>.</li>
+                            <li><strong>Initialize Logs:</b> Record the start date in <code>dev_log.md</code> and set initial goals in <code>context_log.md</code>.</li>
+                            <li><strong>Prompt User:</strong> Ask the user to provide the project overview and requirements.</li>
+                        </ul>
+                    `
+                },
+                read: {
+                    title: 'Act: Read Documentation & Execute',
+                    icon: '📖',
+                    content: `
+                        <p class="text-slate-600 mb-4">Before taking any action, the agent must always review the current project state to ensure its planned actions are aligned with the project's goals, design, and status.</p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2">
+                            <li><strong>Review Context:</strong> Read <code>project.md</code> and <code>context_log.md</code>.</li>
+                            <li><strong>Clarify Ambiguity:</strong> If the task lacks context, ask the user for clarification or to update the documentation.</li>
+                            <li><strong>Execute Task:</strong> After gaining full context, proceed with the task (e.g., writing code, modifying files).</li>
+                        </ul>
+                    `
+                },
+                update: {
+                    title: 'Verify: Update Documentation & Test',
+                    icon: '✍️',
+                    content: `
+                        <p class="text-slate-600 mb-4">After completing a task, the agent must record its work and verify the changes. This closes the loop and prepares the context for the next task.</p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2">
+                            <li><strong>Update Logs:</strong> Record the completed task, changes made, and decisions in <code>dev_log.md</code> and <code>context_log.md</code>.</li>
+                            <li><strong>Run Verification:</strong> Execute static analysis and unit tests to ensure the changes haven't introduced errors.</li>
+                            <li><strong>Report Status:</strong> Inform the user of the task completion, test results, and any new pending tasks.</li>
+                        </ul>
+                    `
+                }
+            };
+
+            const principleCards = document.querySelectorAll('.principle-card-container');
+            const detailsContainer = document.getElementById('principle-details');
+
+            principleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const principleKey = card.dataset.principle;
+                    const data = principlesData[principleKey];
+                    
+                    document.querySelectorAll('.principle-card').forEach(c => c.classList.remove('ring-2', 'ring-sky-500'));
+                    card.querySelector('.principle-card').classList.add('ring-2', 'ring-sky-500');
+
+                    detailsContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        detailsContainer.innerHTML = `
+                            <div class="w-full">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">${data.icon} ${data.title}</h3>
+                                ${data.content}
+                            </div>
+                        `;
+                        detailsContainer.style.opacity = 1;
+                    }, 300);
+                });
+            });
+
+            const tabsContainer = document.getElementById('tabs-container');
+            const tabButtons = tabsContainer.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabsContainer.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('tab-button')) return;
+
+                const tabId = e.target.dataset.tab;
+
+                tabButtons.forEach(button => button.classList.remove('active'));
+                e.target.classList.add('active');
+
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+            
+            const copyButtons = document.querySelectorAll('.copy-button');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const codeId = button.dataset.code;
+                    const codeElement = document.getElementById(codeId);
+                    const textToCopy = codeElement.innerText;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const originalText = button.textContent;
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                });
+            });
+
+            const jsonExplorer = document.getElementById('json-explorer-code');
+            const tooltip = document.getElementById('tooltip');
+            const jsonData = {
+              "project_name": "My Awesome App",
+              "source_dir": "src",
+              "docs": {
+                "project": "docs/project.md",
+                "context_log": "docs/context_log.md",
+                "dev_log": "docs/dev_log.md"
+              },
+              "commands": {
+                "static_check": "npm run lint",
+                "unit_test": "npm test",
+                "e2e_test": "npm run cypress:run"
+              }
+            };
+            const tooltipsData = {
+                "project_name": "The official name of the project.",
+                "source_dir": "The primary directory for source code.",
+                "docs": "Paths to essential documentation files for context.",
+                "project": "Main project overview, requirements, and design.",
+                "context_log": "Tracks current goals, decisions, and pending tasks.",
+                "dev_log": "A chronological log of all development activities.",
+                "commands": "Defines the shell commands for key development tasks.",
+                "static_check": "Command to run linters or static analysis tools.",
+                "unit_test": "Command to execute unit tests.",
+                "e2e_test": "Command to run end-to-end tests."
+            };
+
+            function createHighlightedJson(obj, indent = '') {
+                return Object.entries(obj).map(([key, value]) => {
+                    const keyHtml = `<span class="json-key" data-key="${key}">"${key}"</span>`;
+                    let valueHtml;
+                    if (typeof value === 'object' && value !== null) {
+                        valueHtml = `{\n${createHighlightedJson(value, indent + '  ')}\n${indent}}`;
+                    } else {
+                        valueHtml = `<span class="text-emerald-400">"${String(value)}"</span>`;
+                    }
+                    return `${indent}${keyHtml}: ${valueHtml}`;
+                }).join(',\n');
+            }
+            
+            jsonExplorer.innerHTML = `{\n${createHighlightedJson(jsonData, '  ')}\n}`;
+
+            document.querySelectorAll('.json-key').forEach(span => {
+                span.addEventListener('mousemove', (e) => {
+                    const key = span.dataset.key;
+                    tooltip.textContent = tooltipsData[key] || 'No description available.';
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = `${e.pageX + 15}px`;
+                    tooltip.style.top = `${e.pageY + 15}px`;
+                });
+                span.addEventListener('mouseleave', () => {
+                    tooltip.style.display = 'none';
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
